@@ -2,7 +2,7 @@
 //|	Made By Aaron-Ace  |
 //|----410721303-------|
 //|--------------------|
-//|---0908-226-963-----|
+//|----0908-226-963----|
 //|--------------------|
 //|-ALLRIGHTS RESERVED-|
 //|--------------------|
@@ -51,9 +51,11 @@ int main()
             {
               if(SearchID == database[j].ID)
               {
-                  cout<<database[j].ID<<" "<<database[i].Name<<" "<<database[i].Gender<<" "<<database[i].Age<<endl;
+                  cout<<database[j].ID<<" "<<database[j].Name<<" "<<database[j].Gender<<" "<<database[j].Age<<endl;
                   flag = 0;
+                  break;
               }
+
             }
             if(flag == 1){cout<<"No Answer!"<<endl;}
         }
