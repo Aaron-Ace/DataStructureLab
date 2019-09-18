@@ -38,7 +38,7 @@ void Action(int x)
             char pwd[12];
             cin>>pwd;
             if(CheckPasswd(pwd) == true){cout<<"Login successfully!"<<endl;whetherLogin = 0;}
-            else{cout<<"Password is incorrect"<<endl;}
+            else{cout<<"Password is incorrect."<<endl;}
             break;
         case 2:
             int withdraw;
