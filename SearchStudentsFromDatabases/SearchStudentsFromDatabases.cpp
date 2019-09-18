@@ -13,10 +13,36 @@
 
 using namespace std;
 
+bool CheckID(char SearchID[],char ID[])
+{
+    int len_searchID = 0;
+    for(int j=0; SearchID[j]; ++j){len_searchID++;}
+    int len_ID = 0;
+    for(int j=0; ID[j]; ++j){len_ID++;}
+
+    //cout<<"1."<<len_searchID<<endl;
+    //cout<<"2."<<len_ID<<endl;
+
+    if(len_searchID == len_ID)
+    {
+        int flag = 0;
+        for(int i=0;i<len_ID;i++)
+        {
+
+            if(SearchID[i] != ID[i]){flag = 1;}
+            //cout<<"SearchID:"<<SearchID[i]<<endl;
+            //cout<<"ID:"<<ID[i]<<endl;
+        }
+        if(flag == 0){return true;}
+        else{return false;}
+    }
+    else{return false;}
+}
+
 class DataBaseStruture
 {
     public:
-        int ID;
+        char ID[100];
         string Name;
         string Gender;
         int Age;
@@ -45,11 +71,11 @@ int main()
         for(int i=0;i<NumOfSearch;i++)
         {
             int flag = 1;
-            int SearchID;
+            char SearchID[100];
             cin>>SearchID;
             for(int j=0;j<data;j++)
             {
-              if(SearchID == database[j].ID)
+              if(CheckID(SearchID,database[j].ID)== true)
               {
                   cout<<database[j].ID<<" "<<database[j].Name<<" "<<database[j].Gender<<" "<<database[j].Age<<endl;
                   flag = 0;
