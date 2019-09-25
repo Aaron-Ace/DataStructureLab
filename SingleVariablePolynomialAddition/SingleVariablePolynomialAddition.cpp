@@ -18,9 +18,14 @@ using namespace std;
 class Polynomial
 {
     public:
-        int coefficient;
+        float coefficient;
         int pow;
 };
+
+bool compare(Polynomial a, Polynomial b)
+{
+	return a.pow > b.pow;
+}
 
 int main()
 {
@@ -44,19 +49,28 @@ int main()
         {
             cin>>polynomial[level].coefficient;
             cin>>polynomial[level].pow;
-            level += 1;
+            int flag = 0;
+            for(int i=0 ;i<level;i++)
+            {
+                if(polynomial[i].pow==polynomial[level].pow)
+                {
+                    polynomial[i].coefficient += polynomial[level].coefficient;
+                    polynomial[level].coefficient = 0;
+                    polynomial[level].pow = 0;
+                    flag += 1;
+                }
+            }
+            if(flag==0)
+            {
+                level+=1;
+            }
         }
 
-        for(int i=0;i<=level;i++)
+        sort(polynomial[0].pow,polynomial[0+level].pow,compare);
+
+        for(int i=0;i<level;i++)
         {
-            array_coefficient[polynomial[i].pow+1] += polynomial[i].coefficient;
-        }
-        for(int i=1;i<=1000;i++)
-        {
-            if(array_coefficient[i] != 0)
-            {
-                cout<<array_coefficient[i]<<" "<<i;
-            }
+           cout<< polynomial[0].pow ;
         }
         cout<<endl;
 
