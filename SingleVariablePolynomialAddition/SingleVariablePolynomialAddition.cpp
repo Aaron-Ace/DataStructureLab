@@ -12,31 +12,15 @@
 #include<string>
 #include<algorithm>
 #include<sstream>
-#include <bits/stdc++.h>
 
 using namespace std;
 
-class Polynomial_A
+class Polynomial
 {
     public:
         float coefficient;
         int pow;
 };
-
-class Polynomial_B
-{
-    public:
-        float coefficient;
-        int pow;
-};
-
-class Polynomial_C
-{
-    public:
-        float coefficient;
-        int pow;
-};
-
 
 float int2str(string num){
     float res;
@@ -45,27 +29,20 @@ float int2str(string num){
     return res;
 }
 
-int cmp(const void * a, const void * b)
+bool cmpf(Polynomial const &a, Polynomial const &b)
 {
-
-    Polynomial_C *x = (Polynomial_C *)a;
-
-    Polynomial_C *y = (Polynomial_C *)b;
-
-    return (x->pow - y->pow);
-
+    return a.pow > b.pow;
 }
 
 int main()
 {
     string input_A,input_B,temp;
-    int array_coefficient[1000]={0};
     while(getline(cin,input_A))
     {
 
-        Polynomial_A polynomial_a[1000];
-        Polynomial_B polynomial_b[1000];
-        Polynomial_C polynomial_c[1000];
+        Polynomial polynomial_a[1000];
+        Polynomial polynomial_b[1000];
+        Polynomial polynomial_c[1000];
         stringstream ss_A,ss_B;
 
         //cout<<"Cpoy:"<<input_A<<endl;
@@ -136,7 +113,7 @@ int main()
 
         }
 
-        //sort(polynomial_c,sizeof(polynomial_c),cmp);
+        sort(polynomial_c,polynomial_c+level_C,cmpf);
 
         for(int i=0;i<level_C;i++)
         {
