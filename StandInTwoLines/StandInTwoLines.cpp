@@ -25,6 +25,7 @@ int main()
         int count_odd  =0;
         int array_odd[100] ={0};
         int array_even[100]={0};
+        int count_temp=0;
         for(int i=0;i<NumOfInput;i++)
         {
             cin>>temp;
@@ -44,16 +45,35 @@ int main()
                 //cout<<array_even[count_even]<<count_even<<endl;
             }
         }
-        for(int i=1;i<=count_odd;i++)
+
+        if(count_odd>=2*count_even){temp = 2*count_even;}
+        else{temp = count_odd;}
+
+        for(int i=1;i<=temp;i++)
         {
             cout<<array_odd[i-1]<<" ";
-            int count_temp=0;
-            if(i%2==0 && i<= count_even)
+
+            if(i%2==0 && count_temp != count_even)
             {
                 cout<<array_even[count_temp]<<" ";
                 count_temp +=1;
             }
+
+        }
+
+        for(int i=temp;i<count_odd;i++)
+        {
+            cout<<array_odd[i]<<" ";
+        }
+
+        for(int i=temp/2;i<count_even;i++)
+        {
+            cout<<array_even[i]<<" ";
         }
         cout<<endl;
     }
 }
+//8 2 1 3 9 4 11 14 16
+//8 2 1 3 9 4 11 13 15
+
+
