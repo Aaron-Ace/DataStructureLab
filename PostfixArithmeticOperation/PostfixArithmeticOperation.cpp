@@ -7,100 +7,93 @@
 //|-ALLRIGHTS RESERVED-|
 //|--------------------|
 
-/*
-#include<iostream>
-#include<string>
-#include<algorithm>
-#include<sstream>
-
+#include <iostream>
+#include <sstream>
+#include <stack>
 using namespace std;
 
-int arithmetic(char op, char a, char b){
-    if (op == '+')
-        return (a-'0')+(b-'0');
-    else if (op == '-')
-        return (a-'0')-(b-'0');
-    else if (op == '*')
-        return (a-'0')*(b-'0');
-    else
-        return (a-'0')/(b-'0');
-}
 
 int main()
 {
-    int flag=0;
-    string Formula;
-
-    cout<<"Test: "<<3+5*8-4/4<<endl;
-    while(getline(cin,Formula))
+    string input ;
+    while(cin>>input)
     {
-        int LengthOfFormula;
-        cout<<Formula<<endl;
-        LengthOfFormula = Formula.length();
-        for(int i=0;i<LengthOfFormula;i++)
+        int length_input;
+        long long int num;
+        long long int a,b;
+        length_input = input.length();
+        stack<long long int> st;
+        int flag =0;
+        for(int j=0; j<length_input; j++)
         {
-            if((Formula[i]=='+' || Formula[i]=='-' || Formula[i]=='*' || Formula[i]=='/') && i>=2)
+            if (input[j]=='+')
             {
-                Formula[i]=arithmetic(Formula[i],Formula[i-2],Formula[i-1])+'0';
-                Formula[i-1] = '0'-16;
-                Formula[i-2] = '0'-16;
-                cout<<Formula<<endl;
+                a=st.top();
+                st.pop();
+                if(!st.empty())
+                {
+                    b=st.top();
+                    st.pop();
+                    st.push(a+b);
+                }
+                else{flag +=1; goto Ans;}
+
+            }
+            else if (input[j]=='-')
+            {
+                a=st.top();
+                st.pop();
+                if(!st.empty())
+                {
+                    b=st.top();
+                    st.pop();
+                    st.push(b-a);
+                }
+                else{flag +=1; goto Ans;}
+            }
+            else if (input[j]=='*')
+            {
+                a=st.top();
+                st.pop();
+                if(!st.empty())
+                {
+                    b=st.top();
+                    st.pop();
+                    st.push(a*b);
+                }
+                else{flag +=1; goto Ans;}
+            }
+            else if (input[j]=='/')
+            {
+                a=st.top();
+                st.pop();
+                if(!st.empty())
+                {
+                    b=st.top();
+                    st.pop();
+                    st.push(b/a);
+                }
+                else{flag +=1; goto Ans;}
+            }
+            else
+            {
+                num=input[j]-'0';
+                st.push(num);
             }
         }
-    }
 
-}
-*/
-
-#include <bits/stdc++.h>
-#include <sstream>
-using namespace std;
-
-bool isOperand(char x)
-{
-   return (x >= '0' && x <= '9');
-}
-
-
-string getInfix(string exp)
-{
-    stack<string> s;
-
-    for (int i=0; exp[i]!='\0'; i++)
-    {
-        // Push operands
-        if (isOperand(exp[i]))
+        Ans:
+        if(flag!=0)
         {
-           string op(1, exp[i]);
-           s.push(op);
+            cout<<"Input Error"<<endl;
         }
-
-        // We assume that input is
-        // a valid postfix and expect
-        // an operator.
         else
         {
-            string op1 = s.top();
-            s.pop();
-            string op2 = s.top();
-            s.pop();
-            s.push("(" + op2 + exp[i] +
-                   op1 + ")");
+            a=st.top();
+            cout <<a<<endl;
         }
+
     }
-
-    // There must be a single element
-    // in stack now which is the required
-    // infix.
-    return s.top();
-}
-
-// Driver code
-int main()
-{
-    string exp ;
-    cin>>exp;
-    cout << getInfix(exp)<<endl;
     return 0;
 }
 
