@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+D:/Users/Documents/NDHU/108-1/DataStructure/TreeReconstruction/main.cpp
+iostream
+-
+fstream
+-
+string.h
+-
+

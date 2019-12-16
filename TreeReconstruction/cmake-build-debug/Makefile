@@ -23,9 +23,6 @@ SUFFIXES =
 .SUFFIXES: .hpux_make_needs_suffix_list
 
 
-# Produce verbose output by default.
-VERBOSE = 1
-
 # Suppress display of executed commands.
 $(VERBOSE).SILENT:
 
@@ -50,28 +47,17 @@ RM = C:\Users\user\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\193.5233.103\
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\Users\Documents\NDHU\108-1\DataStructure\TreeReconstruction\cmake-build-debug\CMakeFiles\CMakeTmp
+CMAKE_SOURCE_DIR = D:\Users\Documents\NDHU\108-1\DataStructure\TreeReconstruction
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\Users\Documents\NDHU\108-1\DataStructure\TreeReconstruction\cmake-build-debug\CMakeFiles\CMakeTmp
+CMAKE_BINARY_DIR = D:\Users\Documents\NDHU\108-1\DataStructure\TreeReconstruction\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target edit_cache
-edit_cache:
-	@echo No interactive CMake dialog available...
-	C:\Users\user\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\193.5233.103\bin\cmake\win\bin\cmake.exe -E echo "No interactive CMake dialog available."
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
-	@echo Running CMake to regenerate build system...
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
 	C:\Users\user\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\193.5233.103\bin\cmake\win\bin\cmake.exe -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
@@ -80,11 +66,22 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	C:\Users\user\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\193.5233.103\bin\cmake\win\bin\cmake.exe -E echo "No interactive CMake dialog available."
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
 # The main all target
-all:
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\Users\Documents\NDHU\108-1\DataStructure\TreeReconstruction\cmake-build-debug\CMakeFiles\CMakeTmp\CMakeFiles D:\Users\Documents\NDHU\108-1\DataStructure\TreeReconstruction\cmake-build-debug\CMakeFiles\CMakeTmp\CMakeFiles\progress.marks
+all: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\Users\Documents\NDHU\108-1\DataStructure\TreeReconstruction\cmake-build-debug\CMakeFiles D:\Users\Documents\NDHU\108-1\DataStructure\TreeReconstruction\cmake-build-debug\CMakeFiles\progress.marks
 	$(MAKE) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\Users\Documents\NDHU\108-1\DataStructure\TreeReconstruction\cmake-build-debug\CMakeFiles\CMakeTmp\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\Users\Documents\NDHU\108-1\DataStructure\TreeReconstruction\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -107,61 +104,74 @@ preinstall/fast:
 	$(MAKE) -f CMakeFiles\Makefile2 preinstall
 .PHONY : preinstall/fast
 
+# clear depends
+depend:
+	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 1
+.PHONY : depend
+
 #=============================================================================
-# Target rules for targets named cmTC_13598
+# Target rules for targets named TreeReconstruction
 
 # Build rule for target.
-cmTC_13598:
-	$(MAKE) -f CMakeFiles\Makefile2 cmTC_13598
-.PHONY : cmTC_13598
+TreeReconstruction: cmake_check_build_system
+	$(MAKE) -f CMakeFiles\Makefile2 TreeReconstruction
+.PHONY : TreeReconstruction
 
 # fast build rule for target.
-cmTC_13598/fast:
-	$(MAKE) -f CMakeFiles\cmTC_13598.dir\build.make CMakeFiles/cmTC_13598.dir/build
-.PHONY : cmTC_13598/fast
+TreeReconstruction/fast:
+	$(MAKE) -f CMakeFiles\TreeReconstruction.dir\build.make CMakeFiles/TreeReconstruction.dir/build
+.PHONY : TreeReconstruction/fast
 
-CMakeCCompilerABI.obj: CMakeCCompilerABI.c.obj
+main.obj: main.cpp.obj
 
-.PHONY : CMakeCCompilerABI.obj
+.PHONY : main.obj
 
 # target to build an object file
-CMakeCCompilerABI.c.obj:
-	$(MAKE) -f CMakeFiles\cmTC_13598.dir\build.make CMakeFiles/cmTC_13598.dir/CMakeCCompilerABI.c.obj
-.PHONY : CMakeCCompilerABI.c.obj
+main.cpp.obj:
+	$(MAKE) -f CMakeFiles\TreeReconstruction.dir\build.make CMakeFiles/TreeReconstruction.dir/main.cpp.obj
+.PHONY : main.cpp.obj
 
-CMakeCCompilerABI.i: CMakeCCompilerABI.c.i
+main.i: main.cpp.i
 
-.PHONY : CMakeCCompilerABI.i
+.PHONY : main.i
 
 # target to preprocess a source file
-CMakeCCompilerABI.c.i:
-	$(MAKE) -f CMakeFiles\cmTC_13598.dir\build.make CMakeFiles/cmTC_13598.dir/CMakeCCompilerABI.c.i
-.PHONY : CMakeCCompilerABI.c.i
+main.cpp.i:
+	$(MAKE) -f CMakeFiles\TreeReconstruction.dir\build.make CMakeFiles/TreeReconstruction.dir/main.cpp.i
+.PHONY : main.cpp.i
 
-CMakeCCompilerABI.s: CMakeCCompilerABI.c.s
+main.s: main.cpp.s
 
-.PHONY : CMakeCCompilerABI.s
+.PHONY : main.s
 
 # target to generate assembly for a file
-CMakeCCompilerABI.c.s:
-	$(MAKE) -f CMakeFiles\cmTC_13598.dir\build.make CMakeFiles/cmTC_13598.dir/CMakeCCompilerABI.c.s
-.PHONY : CMakeCCompilerABI.c.s
+main.cpp.s:
+	$(MAKE) -f CMakeFiles\TreeReconstruction.dir\build.make CMakeFiles/TreeReconstruction.dir/main.cpp.s
+.PHONY : main.cpp.s
 
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
 	@echo ... all (the default if no target is provided)
 	@echo ... clean
-	@echo ... cmTC_13598
-	@echo ... edit_cache
+	@echo ... depend
 	@echo ... rebuild_cache
-	@echo ... CMakeCCompilerABI.obj
-	@echo ... CMakeCCompilerABI.i
-	@echo ... CMakeCCompilerABI.s
+	@echo ... TreeReconstruction
+	@echo ... edit_cache
+	@echo ... main.obj
+	@echo ... main.i
+	@echo ... main.s
 .PHONY : help
 
 
 
 #=============================================================================
 # Special targets to cleanup operation of make.
+
+# Special rule to run CMake to check the build system integrity.
+# No rule that depends on this can have commands that come from listfiles
+# because they might be regenerated.
+cmake_check_build_system:
+	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 0
+.PHONY : cmake_check_build_system
 
