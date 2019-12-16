@@ -1,140 +1,67 @@
-//|--------------------|
-//|	Made By Aaron-Ace  |
-//|----410721303-------|
-//|--------------------|
-//|----0908-226-963----|
-//|--------------------|
-//|-ALLRIGHTS RESERVED-|
-//|--------------------|
-
 #include <iostream>
-
+#include <string.h>
+#include <cstdlib>
 using namespace std;
 
-int top=-1;
-
-class stackss
+class stack
 {
     public:
-
-        int stacks[100];
-        int isempty()
-        {
-            if(top==-1){return 1;}
-            else{return 0;}
-        }
-        void push(int data)
-        {
-                top++;
-                stacks[top]=data;
-        }
-        int pop()
-        {
-            int data;
-            data=stacks[top];
-            top--;
-            return data;
-        }
+        unsigned int maxTop;
+        int top;
+        int *data;
 };
 
-int main()
-{
-    string input ;
-    while(cin>>input)
-    {
-        top=-1;
-        int length_input;
-        int num;
-        int a,b;
-        length_input = input.length();
-        stackss st;
-        int flag =0;
-        for(int j=0; j<length_input; j++)
-        {
-            if (input[j]=='+')
-            {
-                a=st.stacks[top];
-                st.pop();
-                if(!st.isempty())
-                {
-                    b=st.stacks[top];
-                    st.pop();
-                    st.push(a+b);
-                }
-                else
-                {
-                    flag +=1;
-                    //goto Ans;
-                }
+void create(stack *st){
+    st->maxTop=14;
+    st->top=-1;
+    st->data=(int *)malloc(sizeof(int));
+}
 
-            }
-            else if (input[j]=='-')
-            {
-                a=st.stacks[top];
-                st.pop();
-                if(!st.isempty())
-                {
-                    b=st.stacks[top];
-                    st.pop();
-                    st.push(b-a);
+void push(stack *st, int num){
+    st->data[++st->top]=num;
+}
+
+int stack_size(stack *st){
+    return (st->top)+1;
+}
+
+int pop(stack *st){
+    return st->data[st->top--];
+}
+
+int arithmetic(char op, int a, int b){
+    if (op == '+')
+        return a+b;
+    else if (op == '-')
+        return a-b;
+    else if (op == '*')
+        return a*b;
+    return a/b;
+}
+
+int main(){
+    stack *s=(stack*)malloc(sizeof(stack));
+    char string[100];
+    int i;
+    while(cin>>string){
+        create(s);
+        int flag=1;
+        for (i=0; i<strlen(string); i++){
+            if (isalnum(string[i]) != 0)
+                push(s, string[i]-'0');
+            else{
+                if (stack_size(s) < 2){
+                    flag=0;
+                    break;
                 }
                 else
-                {
-                    flag +=1;
-                    //goto Ans;
-                }
-            }
-            else if (input[j]=='*')
-            {
-                a=st.stacks[top];
-                st.pop();
-                if(!st.isempty())
-                {
-                    b=st.stacks[top];
-                    st.pop();
-                    st.push(a*b);
-                }
-                else
-                {
-                    flag +=1;
-                    //goto Ans;
-                }
-            }
-            else if (input[j]=='/')
-            {
-                a=st.stacks[top];
-                st.pop();
-                if(!st.isempty())
-                {
-                    b=st.stacks[top];
-                    st.pop();
-                    st.push(b/a);
-                }
-                else
-                {
-                    flag +=1;
-                    //goto Ans;
-                }
-            }
-            else
-            {
-                num=input[j]-'0';
-                st.push(num);
+                    push(s, arithmetic(string[i], pop(s), pop(s)));
             }
         }
-
-//Ans:
-        if(flag!=0)
-        {
+        if (flag == 0 || stack_size(s)>1)
             cout<<"Input Error"<<endl;
-        }
         else
-        {
-            a=st.stacks[top];
-            cout <<a<<endl;
-        }
-
+            cout<<pop(s)<<endl;
     }
     return 0;
 }
-
