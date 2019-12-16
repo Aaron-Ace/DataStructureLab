@@ -24,7 +24,8 @@ private:
 public:
     LinkedList():first(0) {};
     void PrintList();           // 印出list的所有資料
-    void Push_insert(int x,int y);     // 在list的開頭新增node
+    void Push_front(int x);
+    void Push_insert(int data,int position);     // 在list的開頭新增node
     void Push_back(int x);      // 在list的尾巴新增node
     void Delete(int x);         // 刪除list中的 int x
     void Clear();               // 把整串list刪除
@@ -37,7 +38,7 @@ void LinkedList::PrintList()
 
     if (first == 0)                        // 如果first node指向NULL, 表示list沒有資料
     {
-        cout << "List is empty.\n";
+        //cout << "List is empty.\n";
         return;
     }
 
@@ -50,32 +51,63 @@ void LinkedList::PrintList()
     cout << endl;
 }
 
+void LinkedList::Push_front(int x){
 
-void LinkedList::Push_insert(int x,int y)
+    ListNode *newNode = new ListNode(x);   // 配置新的記憶體
+    newNode->next = first;                 // 先把first接在newNode後面
+    first = newNode;                       // 再把first指向newNode所指向的記憶體位置
+}
+
+
+
+void LinkedList::Push_insert(int data,int pos)
 {
+    ListNode* prev = new ListNode();
+    ListNode* curr = new ListNode();
+    ListNode* newNode = new ListNode();
+    newNode->data = data;
 
-    ListNode *newNode = new ListNode(x);
-    ListNode *current=first,*previous = 0;
-    if(x==1)
+    int tempPos = 1;   // Traverses through the list
+
+    curr = first;      // Initialize current to head;
+    if(first != NULL)
     {
-        newNode->next = first;                 // 先把first接在newNode後面
-        first = newNode;
+        while(curr->next != NULL && tempPos != pos)
+        {
+            prev = curr;
+            curr = curr->next;
+            tempPos++;
+        }
+        if(pos==0)
+        {
+            //cout << "Adding at Head! " << endl;
+            Push_front(data);// Call function to addNode from head;
+        }
+        else if(curr->next == NULL && pos == tempPos)
+        {
+            //cout << "Adding at Tail! " << endl;
+            Push_back(data);// Call function to addNode at tail;
+        }
+        else if(pos > tempPos+1)
+        {
+              //cout << " Position is out of bounds " << endl;
+        //Position not valid
+        }
 
+
+        else
+        {
+            prev->next = newNode;
+            newNode->next = curr;
+            //cout << "Node added at position: " << pos << endl;
+        }
     }
     else
     {
-        for(int i=0;i<x-1;i++)
-        {
-            current = current->next;
-        }
-        previous = current;
-        current = current->next;
-        newNode = current->next;
-        previous -> next = newNode;
+        first = newNode;
+        newNode->next=NULL;
+        //cout << "Added at head as list is empty! " << endl;
     }
-    newNode->data = y;
-
-
 }
 
 
@@ -101,21 +133,16 @@ void LinkedList::Push_back(int x)
 
 void LinkedList::Delete(int x)
 {
+    int tempPos =1;
+    ListNode *current = first,*previous = 0;
+    while(current->next != NULL && tempPos != x)
+        {
+            previous = current;
+            current = current->next;
+            tempPos++;
+        }                                         // 即結束while loop
 
-    ListNode *current = first,
-              *previous = 0;
-    while (current != 0 && current->data != x)    // Traversal
-    {
-        previous = current;                       // 如果current指向NULL
-        current = current->next;                  // 或是current->data == x
-    }                                             // 即結束while loop
-
-    if (current == 0)                   // list沒有要刪的node, 或是list為empty
-    {
-        std::cout << "There is no " << x << " in list.\n";
-        // return;
-    }
-    else if (current == first)          // 要刪除的node剛好在list的開頭
+    if (x == 1)          // 要刪除的node剛好在list的開頭
     {
         first = current->next;          // 把first移到下一個node
         delete current;                 // 如果list只有一個node, 那麼first就會指向NULL
@@ -130,41 +157,6 @@ void LinkedList::Delete(int x)
         // return;
     }
 }
-
-/*
-void LinkedList::Clear(){
-
-    while (first != 0) {            // Traversal
-        ListNode *current = first;
-        first = first->next;
-        delete current;
-        current = 0;
-    }
-}
-
-
-void LinkedList::Reverse(){
-
-    if (first == 0 || first->next == 0) {
-        // list is empty or list has only one node
-        return;
-    }
-
-    ListNode *previous = 0,
-             *current = first,
-             *preceding = first->next;
-
-    while (preceding != 0) {
-        current->next = previous;      // 把current->next轉向
-        previous = current;            // previous往後挪
-        current = preceding;           // current往後挪
-        preceding = preceding->next;   // preceding往後挪
-    }                                  // preceding更新成NULL即跳出while loop
-
-    current->next = previous;          // 此時current位於最後一個node, 將current->next轉向
-    first = current;                   // 更新first為current
-}
-*/
 
 int main()
 {
@@ -189,8 +181,8 @@ int main()
         else if (order==1)
         {
             int position,value;
-            cin>>position,value;
-            list.Push_insert(position,value);
+            cin>>position>>value;
+            list.Push_insert(value,position-1);
 
         }
         else if (order==2)
