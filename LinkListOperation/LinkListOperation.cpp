@@ -2,8 +2,8 @@
 
 using namespace std;
 
-class LinkedList;    // 為了將class LinkedList設成class ListNode的friend,
-// 需要先宣告
+class LinkedList;
+
 class ListNode
 {
 private:
@@ -19,31 +19,29 @@ public:
 class LinkedList
 {
 private:
-    // int size;                // size是用來記錄Linked list的長度, 非必要
-    ListNode *first;            // list的第一個node
+    ListNode *first;
 public:
     LinkedList():first(0) {};
-    void PrintList();           // 印出list的所有資料
+    void PrintList();
     void Push_front(int x);
-    void Push_insert(int data,int position);     // 在list的開頭新增node
-    void Push_back(int x);      // 在list的尾巴新增node
-    void Delete(int x);         // 刪除list中的 int x
-    void Clear();               // 把整串list刪除
-    void Reverse();             // 將list反轉: 7->3->14 => 14->3->7
+    void Push_insert(int data,int position);
+    void Push_back(int x);
+    void Delete(int x);
+    void Clear();
+    void Reverse();
 };
 
 
 void LinkedList::PrintList()
 {
 
-    if (first == 0)                        // 如果first node指向NULL, 表示list沒有資料
+    if (first == 0)
     {
-        //cout << "List is empty.\n";
         return;
     }
 
-    ListNode *current = first;             // 用pointer *current在list中移動
-    while (current != 0)                   // Traversal
+    ListNode *current = first;
+    while (current != 0)
     {
         cout << current->data << " ";
         current = current->next;
@@ -51,11 +49,12 @@ void LinkedList::PrintList()
     cout << endl;
 }
 
-void LinkedList::Push_front(int x){
+void LinkedList::Push_front(int x)
+{
 
-    ListNode *newNode = new ListNode(x);   // 配置新的記憶體
-    newNode->next = first;                 // 先把first接在newNode後面
-    first = newNode;                       // 再把first指向newNode所指向的記憶體位置
+    ListNode *newNode = new ListNode(x);
+    newNode->next = first;
+    first = newNode;
 }
 
 
@@ -67,9 +66,9 @@ void LinkedList::Push_insert(int data,int pos)
     ListNode* newNode = new ListNode();
     newNode->data = data;
 
-    int tempPos = 1;   // Traverses through the list
+    int tempPos = 0;
 
-    curr = first;      // Initialize current to head;
+    curr = first;
     if(first != NULL)
     {
         while(curr->next != NULL && tempPos != pos)
@@ -80,33 +79,22 @@ void LinkedList::Push_insert(int data,int pos)
         }
         if(pos==0)
         {
-            //cout << "Adding at Head! " << endl;
-            Push_front(data);// Call function to addNode from head;
+            Push_front(data);
         }
-        else if(curr->next == NULL && pos == tempPos)
+        else if(curr->next == NULL && pos == tempPos+1)
         {
-            //cout << "Adding at Tail! " << endl;
-            Push_back(data);// Call function to addNode at tail;
+            Push_back(data);
         }
-        else if(pos > tempPos+1)
-        {
-              //cout << " Position is out of bounds " << endl;
-        //Position not valid
-        }
-
-
         else
         {
             prev->next = newNode;
             newNode->next = curr;
-            //cout << "Node added at position: " << pos << endl;
         }
     }
     else
     {
         first = newNode;
         newNode->next=NULL;
-        //cout << "Added at head as list is empty! " << endl;
     }
 }
 
@@ -114,20 +102,20 @@ void LinkedList::Push_insert(int data,int pos)
 void LinkedList::Push_back(int x)
 {
 
-    ListNode *newNode = new ListNode(x);   // 配置新的記憶體
+    ListNode *newNode = new ListNode(x);
 
-    if (first == 0)                        // 若list沒有node, 令newNode為first
+    if (first == 0)
     {
         first = newNode;
         return;
     }
 
     ListNode *current = first;
-    while (current->next != 0)             // Traversal
+    while (current->next != 0)
     {
         current = current->next;
     }
-    current->next = newNode;               // 將newNode接在list的尾巴
+    current->next = newNode;
 }
 
 
@@ -136,32 +124,30 @@ void LinkedList::Delete(int x)
     int tempPos =1;
     ListNode *current = first,*previous = 0;
     while(current->next != NULL && tempPos != x)
-        {
-            previous = current;
-            current = current->next;
-            tempPos++;
-        }                                         // 即結束while loop
-
-    if (x == 1)          // 要刪除的node剛好在list的開頭
     {
-        first = current->next;          // 把first移到下一個node
-        delete current;                 // 如果list只有一個node, 那麼first就會指向NULL
-        current = 0;                    // 當指標被delete後, 將其指向NULL, 可以避免不必要bug
-        // return;
+        previous = current;
+        current = current->next;
+        tempPos++;
     }
-    else                                // 其餘情況, list中有欲刪除的node,
+
+    if (x == 1)
     {
-        previous->next = current->next; // 而且node不為first, 此時previous不為NULL
+        first = current->next;
         delete current;
         current = 0;
-        // return;
+    }
+    else
+    {
+        previous->next = current->next;
+        delete current;
+        current = 0;
     }
 }
 
 int main()
 {
 
-    LinkedList list;     // 建立LinkedList的object
+    LinkedList list;
 
     int NumOfList;
     cin>>NumOfList;
@@ -206,10 +192,43 @@ int main()
 }
 
 /*
-
+Test 1:
 5 1 2 3 4 5
 3
 2 5
 3
 0
+Test 2:
+100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+1 99 2
+1 99 56
+3
+0
+Test 3:
+3 -1 -6 1000
+2 2
+1 2 100
+2 3
+1 1 0
+1 2 0
+3
+0
+Test 4:
+9 9 8 7 6 5 4 3 2 1
+3
+1 5 1
+1 8 0
+1 12 0
+3
+0
 */
+
+/*
+10 0 0 0 0 0 0 0 0 0 0
+1 9 2
+1 9 56
+3
+0
+*/
+
+
