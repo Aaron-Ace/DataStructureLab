@@ -1,69 +1,55 @@
 #include<iostream>
+#include<memory.h>
 
 using namespace std;
 
-int Sum_Row[1000];
-int Sum_Col[1000];
+int a[103][103], row[103], column[103];
 
-int Odd_Row=0;
-int Odd_Col=0;
-
-void GetSum(int matrix)
+int main(void)
 {
-
-    int temp;
-    for(int i=1;i<=matrix;i++)
-    {
-        for(int j=1;j<=matrix;j++)
-        {
-            cin>>temp;
-            Sum_Row[i]+=temp;
-            Sum_Col[j]+=temp;
-        }
-    }
-}
-
-void HowManyOddSum(int matrix)
-{
-    for(int i=1;i<=matrix;i++)
-    {
-        if(Sum_Row[i]%2 != 0){Odd_Row+=1;}
-        if(Sum_Col[i]%2 != 0){Odd_Col+=1;}
-    }
-}
-
-void GetChangeBitPosition(int matrix)
-{
-    int y;
-    int x;
-    if(Odd_Row == 0 && Odd_Col==0){cout<<"OK"<<endl;}
-    else if(Odd_Row == 1 && Odd_Col==1)
-    {
-        for(int i=1;i<=matrix;i++)
-        {
-            if(Sum_Row[i]%2 != 0){ x = i;}
-            if(Sum_Col[i]%2 != 0){ y = i;}
-        }
-        cout<<"Change bit ("<<x<<","<<y<<")"<<endl;
-    }
-    else{cout<<"Corrupt"<<endl;}
-
-}
-
-
-int main()
-{
-
-    int matrix;
-
-    while(cin>>matrix)
-    {
-        if(matrix == 0){break;}
-        GetSum(matrix);
-        HowManyOddSum(matrix);
-        GetChangeBitPosition(matrix);
-
-
-    }
-
+	int n;
+	int i, j, k, fr, fc;
+	while (cin>>n)
+	{
+	    if(n==0){break;}
+		///reset
+		memset(row, 0, sizeof(row));
+		memset(column, 0, sizeof(column));
+		for (i = 1; i <= n; i++)
+		{
+			for (j = 1; j <= n; j++)
+			{
+				cin>>a[i][j];
+				row[i] += a[i][j];
+				column[j] += a[i][j];
+			}
+		}
+		j = 0;///check if even
+		for (i = 1; i <= n; i++)
+		{
+			if (row[i] & 1)
+			{
+				++j;
+				fr = i;
+			}
+		}
+		//cout<<"fr:"<<fr<<"J:"<<j<<endl;
+		k = 0;///check if even
+		for (i = 1; i <= n; i++)
+		{
+			if (column[i] & 1)
+			{
+				++k;
+				fc = i;
+			}
+		}
+        //cout<<"fc:"<<fc<<"k:"<<k<<endl;
+		if (j == 0 && k == 0)
+			cout<<"OK"<<endl;
+		else if (j == 1 && k == 1)
+			cout<<"Change bit ("<<fr<<","<<fc<<")"<<endl;
+		else
+			cout<<"Corrupt"<<endl;
+	}
+	return 0;
 }
